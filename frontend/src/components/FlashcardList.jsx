@@ -1,4 +1,3 @@
-// src/components/FlashcardList.jsx
 import { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import {
@@ -37,12 +36,14 @@ const FlashcardList = () => {
     setForm({ question: '', answer: '' });
     setIsAddOpen(true);
   };
+
   const openEdit = (card, e) => {
     e.stopPropagation();
     setCurrent(card);
     setForm({ question: card.question, answer: card.answer });
     setIsEditOpen(true);
   };
+
   const openDelete = (card, e) => {
     e.stopPropagation();
     setCurrent(card);
@@ -101,15 +102,16 @@ const FlashcardList = () => {
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
-      <h1 className="text-4xl text-white font-serif text-center mb-12">
+      <h1 className="text-4xl text-white font-bold tracking-widest text-center mb-12 drop-shadow-lg">
         F L A S H I F Y
       </h1>
+
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         <div
           onClick={openAdd}
-          className="bg-white rounded-lg shadow-lg aspect-[5/7] flex items-center justify-center cursor-pointer hover:bg-gray-100 transition-colors"
+          className="bg-white/10 backdrop-blur-md rounded-xl border border-white/30 shadow-xl aspect-[5/7] flex items-center justify-center cursor-pointer hover:scale-105 transition-all duration-300"
         >
           <span className="text-mint-green text-6xl">+</span>
         </div>
@@ -118,139 +120,111 @@ const FlashcardList = () => {
           <div
             key={c.id}
             onClick={() => flip(c.id)}
-            className={`bg-yellow-100 rounded-lg shadow-lg aspect-[5/7] relative cursor-pointer transition-all duration-300 ${
-              flipped[c.id] ? 'bg-yellow-200' : ''
-            }`}
+            className="perspective"
           >
-            <div className="absolute inset-0 p-6 flex flex-col">
-              <div className="flex-grow flex items-center justify-center">
-                <h3 className="text-lg text-black font-medium text-center">
-                  {flipped[c.id] ? c.answer : c.question}
-                </h3>
+            <div
+              className={`relative w-full h-full aspect-[5/7] transition-transform duration-500 transform-style-preserve-3d ${
+                flipped[c.id] ? 'rotate-y-180' : ''
+              }`}
+            >
+              {/* FRONT */}
+              <div className="absolute w-full h-full backface-hidden bg-yellow-100 rounded-xl shadow-2xl p-6 flex flex-col justify-center items-center hover:scale-[1.02] transition-transform">
+                <h3 className="text-lg text-black font-semibold text-center">{c.question}</h3>
               </div>
-              <div className="mt-auto flex justify-end space-x-2 opacity-0 hover:opacity-100 transition-opacity">
-                <button
-                  onClick={e => openEdit(c, e)}
-                  className="bg-blue-500 text-black px-3 py-1 rounded text-sm hover:bg-blue-600"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={e => openDelete(c, e)}
-                  className="bg-red-500 text-black px-3 py-1 rounded text-sm hover:bg-red-600"
-                >
-                  Delete
-                </button>
+
+              {/* BACK */}
+              <div className="absolute w-full h-full backface-hidden bg-yellow-200 rounded-xl shadow-2xl p-6 transform rotate-y-180 flex flex-col justify-center items-center">
+                <h3 className="text-lg text-black font-semibold text-center">{c.answer}</h3>
+                <div className="mt-6 flex space-x-2">
+                  <button
+                    onClick={e => openEdit(c, e)}
+                    className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 shadow"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={e => openDelete(c, e)}
+                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 shadow"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Add Modal */}
-      <Modal
-        isOpen={isAddOpen}
-        onRequestClose={() => setIsAddOpen(false)}
-        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  text-black rounded-xl p-8 max-w-md w-full z-50" style={{ backgroundColor: "#142518" }}
-        overlayClassName="fixed inset-0 bg-black bg-opacity-75 z-40"
-        contentLabel="Add Flashcard"
-      >
-        <h2 className="text-2xl mb-4">Add Flashcard</h2>
-        <form onSubmit={submitAdd}>
-          <label className="block mb-2">Question</label>
-          <input
-            className="w-full mb-4 p-2 rounded text-black" style={{ backgroundColor: "#fafac0 " }}
-            value={form.question}
-            onChange={e => setForm(f => ({ ...f, question: e.target.value }))}
-            required
-          />
-          <label className="block mb-2">Answer</label>
-          <input
-            className="w-full mb-4 p-2 rounded  text-black" style={{ backgroundColor: "#fafac0 " }}
-            value={form.answer}
-            onChange={e => setForm(f => ({ ...f, answer: e.target.value }))}
-            required
-          />
-          <div className="flex space-x-4">
-            <button
-              type="submit"
-              className="flex-1 bg-blue-500 p-2 rounded hover:bg-blue-600"
-            >
-              Add
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsAddOpen(false)}
-              className="flex-1 bg-gray-500 p-2 rounded hover:bg-gray-600"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-      </Modal>
-
-      {/* Edit Modal */}
-      <Modal
-        isOpen={isEditOpen}
-        onRequestClose={() => setIsEditOpen(false)}
-        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  text-black rounded-xl p-8 max-w-md w-full z-50" style={{ backgroundColor: "#142518" }}
-        overlayClassName="fixed inset-0 bg-black bg-opacity-75 z-40"
-        contentLabel="Edit Flashcard"
-      >
-        <h2 className="text-2xl mb-4">Edit Flashcard</h2>
-        <form onSubmit={submitEdit}>
-          <label className="block mb-2">Question</label>
-          <input
-            className="w-full mb-4 p-2 rounded  text-black" style={{ backgroundColor: "#fafac0 " }}
-            value={form.question}
-            onChange={e => setForm(f => ({ ...f, question: e.target.value }))}
-            required
-          />
-          <label className="block mb-2">Answer</label>
-          <input
-            className="w-full mb-4 p-2 rounded  text-black" style={{ backgroundColor: "#fafac0 " }}
-            value={form.answer}
-            onChange={e => setForm(f => ({ ...f, answer: e.target.value }))}
-            required
-          />
-          <div className="flex space-x-4">
-            <button
-              type="submit"
-              className="flex-1 bg-blue-500 p-2 rounded hover:bg-blue-600"
-            >
-              Update
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsEditOpen(false)}
-              className="flex-1 bg-gray-500 p-2 rounded hover:bg-gray-600"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-      </Modal>
+      {/* Reusable Modal Form */}
+      {(isAddOpen || isEditOpen) && (
+        <Modal
+          isOpen={isAddOpen || isEditOpen}
+          onRequestClose={() => {
+            setIsAddOpen(false);
+            setIsEditOpen(false);
+          }}
+          className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-lg rounded-xl p-8 max-w-md w-full text-white border border-white/30 shadow-2xl z-50"
+          overlayClassName="fixed inset-0 bg-black bg-opacity-70 z-40"
+          contentLabel="Flashcard Modal"
+        >
+          <h2 className="text-2xl mb-4">{isAddOpen ? 'Add' : 'Edit'} Flashcard</h2>
+          <form onSubmit={isAddOpen ? submitAdd : submitEdit}>
+            <label className="block mb-2">Question</label>
+            <input
+              className="w-full mb-4 p-2 rounded text-black bg-yellow-100"
+              value={form.question}
+              onChange={e => setForm(f => ({ ...f, question: e.target.value }))}
+              required
+            />
+            <label className="block mb-2">Answer</label>
+            <input
+              className="w-full mb-4 p-2 rounded text-black bg-yellow-100"
+              value={form.answer}
+              onChange={e => setForm(f => ({ ...f, answer: e.target.value }))}
+              required
+            />
+            <div className="flex space-x-4">
+              <button
+                type="submit"
+                className="flex-1 bg-blue-500 p-2 rounded hover:bg-blue-600 text-white"
+              >
+                {isAddOpen ? 'Add' : 'Update'}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsAddOpen(false);
+                  setIsEditOpen(false);
+                }}
+                className="flex-1 bg-gray-500 p-2 rounded hover:bg-gray-600 text-white"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </Modal>
+      )}
 
       {/* Delete Modal */}
       <Modal
         isOpen={isDeleteOpen}
         onRequestClose={() => setIsDeleteOpen(false)}
-        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black rounded-xl p-8 max-w-md w-full z-50" style={{ backgroundColor: "#142518" }}
-        overlayClassName="fixed inset-0 bg-black bg-opacity-75 z-40"
-        contentLabel="Delete Flashcard Modal"
+        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md rounded-xl p-8 max-w-md w-full text-white border border-white/30 shadow-2xl z-50"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-70 z-40"
+        contentLabel="Delete Flashcard"
       >
         <h2 className="text-2xl mb-4">Confirm Delete</h2>
-        <p className="mb-4">Are you sure you want to delete this?</p>
+        <p className="mb-4">Are you sure you want to delete this card?</p>
         <div className="flex space-x-4">
           <button
             onClick={confirmDelete}
-            className="flex-1 bg-red-500 p-2 rounded hover:bg-red-600 text-black"
+            className="flex-1 bg-red-500 p-2 rounded hover:bg-red-600 text-white"
           >
             Yes, Delete
           </button>
           <button
             onClick={() => setIsDeleteOpen(false)}
-            className="flex-1 bg-gray-500 p-2 rounded hover:bg-gray-600 text-black"
+            className="flex-1 bg-gray-500 p-2 rounded hover:bg-gray-600 text-white"
           >
             Cancel
           </button>

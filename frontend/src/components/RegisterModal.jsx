@@ -53,7 +53,7 @@ const RegisterModal = ({ isOpen, onRequestClose }) => {
             id="username"
             value={userData.username}
             onChange={handleChange}
-            className="w-full p-2 rounded  text-white focus:outline-none" style={{ backgroundColor: "#fafac0 " }}
+            className="w-full p-2 rounded  text-black focus:outline-none" style={{ backgroundColor: "#fafac0 " }}
             required
           />
         </div>
