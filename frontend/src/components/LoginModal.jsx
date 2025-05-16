@@ -1,7 +1,7 @@
 // src/components/LoginModal.jsx
 import { useState } from 'react';
 import Modal from 'react-modal';
-import { useNavigate } from 'react-router-dom'; // Add this
+import { useNavigate } from 'react-router-dom';
 import { login } from '../utils/api';
 
 Modal.setAppElement('#root');
@@ -9,7 +9,7 @@ Modal.setAppElement('#root');
 const LoginModal = ({ isOpen, onRequestClose, setUser }) => {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Add this for navigation
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -21,11 +21,11 @@ const LoginModal = ({ isOpen, onRequestClose, setUser }) => {
       const data = await login(credentials);
       localStorage.setItem('access', data.access);
       localStorage.setItem('refresh', data.refresh);
-      localStorage.setItem('user', JSON.stringify(data.user)); // Ensure user is stored
-      setUser(data.user); // Update user state
+      localStorage.setItem('user', JSON.stringify(data.user));
+      setUser(data.user);
       setError(null);
-      onRequestClose(); // Close the modal
-      navigate('/flashcards'); // Navigate without reload
+      onRequestClose();
+      navigate('/flashcards');
     } catch (err) {
       const errorMessage = err.response?.data?.error || err.response?.data?.detail || JSON.stringify(err.response?.data) || 'Login failed';
       setError(errorMessage);
@@ -38,6 +38,7 @@ const LoginModal = ({ isOpen, onRequestClose, setUser }) => {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       className="text-white"
+      overlayClassName="ReactModal__Overlay"
     >
       <h2 className="text-2xl mb-4">Login</h2>
       {error && <p className="text-red-500 mb-4">{error}</p>}

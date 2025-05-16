@@ -6,7 +6,7 @@ import { register } from '../utils/api';
 Modal.setAppElement('#root');
 
 const RegisterModal = ({ isOpen, onRequestClose }) => {
-  const [userData, setUserData] = useState({ username: '', email: '', password: '' });
+  const [userData, setUserData] = useState({ username: '', password: '' });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
@@ -37,7 +37,7 @@ const RegisterModal = ({ isOpen, onRequestClose }) => {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       className="text-white"
-      overlayClassName="fixed inset-0"
+      overlayClassName="ReactModal__Overlay"
     >
       <h2 className="text-2xl mb-4">Register</h2>
       {error && <p className="text-red-500 mb-4">{JSON.stringify(error)}</p>}
@@ -52,20 +52,6 @@ const RegisterModal = ({ isOpen, onRequestClose }) => {
             name="username"
             id="username"
             value={userData.username}
-            onChange={handleChange}
-            className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-2" htmlFor="email">
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={userData.email}
             onChange={handleChange}
             className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none"
             required

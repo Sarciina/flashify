@@ -11,7 +11,7 @@ const FlashcardList = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [currentFlashcard, setCurrentFlashcard] = useState(null);
-  const [newFlashcard, setNewFlashcard] = useState({ front: '', back: '' });
+  const [newFlashcard, setNewFlashcard] = useState({ question: '', answer: '' });
   const [error, setError] = useState(null);
 
   // Fetch flashcards on mount
@@ -29,13 +29,13 @@ const FlashcardList = () => {
   }, []);
 
   const handleAddOpen = () => {
-    setNewFlashcard({ front: '', back: '' });
+    setNewFlashcard({ question: '', answer: '' });
     setIsAddModalOpen(true);
   };
 
   const handleEditOpen = (flashcard) => {
     setCurrentFlashcard(flashcard);
-    setNewFlashcard({ front: flashcard.front, back: flashcard.back });
+    setNewFlashcard({ question: flashcard.question, answer: flashcard.answer });
     setIsEditModalOpen(true);
   };
 
@@ -101,8 +101,8 @@ const FlashcardList = () => {
             key={flashcard.id}
             className="bg-yellow-400 p-4 rounded-lg shadow-lg text-black relative"
           >
-            <h3 className="font-bold mb-2">{flashcard.front}</h3>
-            <p>{flashcard.back}</p>
+            <h3 className="font-bold mb-2">{flashcard.question}</h3>
+            <p>{flashcard.answer}</p>
             <div className="mt-4 flex space-x-2">
               <button
                 onClick={() => handleEditOpen(flashcard)}
@@ -131,29 +131,29 @@ const FlashcardList = () => {
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <form onSubmit={handleAddSubmit}>
           <div className="mb-4">
-            <label className="block mb-2" htmlFor="front">
-              Front
+            <label className="block mb-2" htmlFor="question">
+              Question
             </label>
             <input
               type="text"
-              name="front"
-              id="front"
-              value={newFlashcard.front}
-              onChange={(e) => setNewFlashcard({ ...newFlashcard, front: e.target.value })}
+              name="question"
+              id="question"
+              value={newFlashcard.question}
+              onChange={(e) => setNewFlashcard({ ...newFlashcard, question: e.target.value })}
               className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none"
               required
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-2" htmlFor="back">
-              Back
+            <label className="block mb-2" htmlFor="answer">
+              Answer
             </label>
             <input
               type="text"
-              name="back"
-              id="back"
-              value={newFlashcard.back}
-              onChange={(e) => setNewFlashcard({ ...newFlashcard, back: e.target.value })}
+              name="answer"
+              id="answer"
+              value={newFlashcard.answer}
+              onChange={(e) => setNewFlashcard({ ...newFlashcard, answer: e.target.value })}
               className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none"
               required
             />
@@ -186,29 +186,29 @@ const FlashcardList = () => {
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <form onSubmit={handleEditSubmit}>
           <div className="mb-4">
-            <label className="block mb-2" htmlFor="front">
-              Front
+            <label className="block mb-2" htmlFor="question">
+              Question
             </label>
             <input
               type="text"
-              name="front"
-              id="front"
-              value={newFlashcard.front}
-              onChange={(e) => setNewFlashcard({ ...newFlashcard, front: e.target.value })}
+              name="question"
+              id="question"
+              value={newFlashcard.question}
+              onChange={(e) => setNewFlashcard({ ...newFlashcard, question: e.target.value })}
               className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none"
               required
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-2" htmlFor="back">
-              Back
+            <label className="block mb-2" htmlFor="answer">
+              Answer
             </label>
             <input
               type="text"
-              name="back"
-              id="back"
-              value={newFlashcard.back}
-              onChange={(e) => setNewFlashcard({ ...newFlashcard, back: e.target.value })}
+              name="answer"
+              id="answer"
+              value={newFlashcard.answer}
+              onChange={(e) => setNewFlashcard({ ...newFlashcard, answer: e.target.value })}
               className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none"
               required
             />
