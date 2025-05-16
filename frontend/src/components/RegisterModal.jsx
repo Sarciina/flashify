@@ -1,7 +1,11 @@
+// src/components/RegisterModal.jsx
 import { useState } from 'react';
+import Modal from 'react-modal';
 import { register } from '../utils/api';
 
-const RegisterForm = () => {
+Modal.setAppElement('#root');
+
+const RegisterModal = ({ isOpen, onRequestClose }) => {
   const [userData, setUserData] = useState({ username: '', email: '', password: '' });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -16,21 +20,31 @@ const RegisterForm = () => {
       const data = await register(userData);
       setSuccess(data.message);
       setError(null);
-      setTimeout(() => (window.location.href = '/login'), 2000);
+      setTimeout(() => {
+        onRequestClose();
+        window.location.href = '/flashcards';
+      }, 2000);
     } catch (err) {
-      setError(err.response?.data || 'Registration failed');
+      const errorMessage = err.response?.data || 'Registration failed';
+      setError(errorMessage);
       setSuccess(null);
+      console.error('Register error:', err);
     }
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-gray-900 rounded-lg shadow-lg">
-      <h2 className="text-2xl text-white mb-4">Register</h2>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      className="text-white"
+      overlayClassName="fixed inset-0"
+    >
+      <h2 className="text-2xl mb-4">Register</h2>
       {error && <p className="text-red-500 mb-4">{JSON.stringify(error)}</p>}
       {success && <p className="text-green-500 mb-4">{success}</p>}
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label className="block text-white mb-2" htmlFor="username">
+          <label className="block mb-2" htmlFor="username">
             Username
           </label>
           <input
@@ -44,7 +58,7 @@ const RegisterForm = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-white mb-2" htmlFor="email">
+          <label className="block mb-2" htmlFor="email">
             Email
           </label>
           <input
@@ -58,7 +72,7 @@ const RegisterForm = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-white mb-2" htmlFor="password">
+          <label className="block mb-2" htmlFor="password">
             Password
           </label>
           <input
@@ -71,15 +85,24 @@ const RegisterForm = () => {
             required
           />
         </div>
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-        >
-          Register
-        </button>
+        <div className="flex space-x-4">
+          <button
+            type="submit"
+            className="flex-1 bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+          >
+            Register
+          </button>
+          <button
+            type="button"
+            onClick={onRequestClose}
+            className="flex-1 bg-gray-500 text-white p-2 rounded hover:bg-gray-600"
+          >
+            Cancel
+          </button>
+        </div>
       </form>
-    </div>
+    </Modal>
   );
 };
 
-export default RegisterForm;
+export default RegisterModal;

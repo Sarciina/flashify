@@ -1,4 +1,30 @@
 @import "tailwindcss";
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
+/* Modal overlay */
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+  z-index: 1000;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Modal content */
+.ReactModal__Content {
+  background-color: #1f2937 !important; /* Gray-800 */
+  border: none !important;
+  border-radius: 0.5rem !important;
+  padding: 2rem !important;
+  max-width: 28rem !important; /* 448px */
+  width: 90% !important; /* Responsive width */
+  max-height: 80vh !important; /* Limit height to 80% of viewport */
+  overflow-y: auto !important; /* Scroll if content overflows */
+  position: relative !important;
+}

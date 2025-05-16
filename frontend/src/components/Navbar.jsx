@@ -1,21 +1,14 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { logout } from '../utils/api';
+// src/components/Navbar.jsx
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import LoginModal from './LoginModal';
+import RegisterModal from './RegisterModal';
+import LogoutModal from './LogoutModal';
 
 const Navbar = ({ user, setUser }) => {
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    try {
-      const refreshToken = localStorage.getItem('refresh');
-      await logout(refreshToken);
-      localStorage.removeItem('access');
-      localStorage.removeItem('refresh');
-      setUser(null);
-      navigate('/login');
-    } catch (error) {
-      console.error('Logout failed:', error);
-    }
-  };
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isLogoutOpen, setIsLogoutOpen] = useState(false);
 
   return (
     <nav className="bg-gray-800 p-4 flex justify-between items-center">
@@ -30,20 +23,40 @@ const Navbar = ({ user, setUser }) => {
               Flashcards
             </Link>
             <button
-              onClick={handleLogout}
+              onClick={() => setIsLogoutOpen(true)}
               className="text-white hover:text-gray-300"
             >
               Logout
             </button>
+            <LogoutModal
+              isOpen={isLogoutOpen}
+              onRequestClose={() => setIsLogoutOpen(false)}
+              setUser={setUser}
+            />
           </>
         ) : (
           <>
-            <Link to="/login" className="text-white hover:text-gray-300">
+            <button
+              onClick={() => setIsLoginOpen(true)}
+              className="text-white hover:text-gray-300"
+            >
               Login
-            </Link>
-            <Link to="/register" className="text-white hover:text-gray-300">
+            </button>
+            <button
+              onClick={() => setIsRegisterOpen(true)}
+              className="text-white hover:text-gray-300"
+            >
               Register
-            </Link>
+            </button>
+            <LoginModal
+              isOpen={isLoginOpen}
+              onRequestClose={() => setIsLoginOpen(false)}
+              setUser={setUser}
+            />
+            <RegisterModal
+              isOpen={isRegisterOpen}
+              onRequestClose={() => setIsRegisterOpen(false)}
+            />
           </>
         )}
       </div>

@@ -1,27 +1,69 @@
+// src/App.jsx
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Login from './pages/Login';
-import Register from './pages/Register';
 import Flashcards from './pages/Flashcards';
+import LoginModal from './components/LoginModal';
+
+const ProtectedRoute = ({ user, setUser, children }) => {
+  const navigate = useNavigate();
+  const [isLoginOpen, setIsLoginOpen] = useState(!user);
+
+  useEffect(() => {
+    setIsLoginOpen(!user); // Open modal only if user is not logged in
+  }, [user]);
+
+  const handleLoginClose = () => {
+    setIsLoginOpen(false);
+    if (!user) {
+      navigate('/');
+    }
+  };
+
+  return (
+    <>
+      {user ? (
+        children
+      ) : (
+        <div className="min-h-screen bg-gray-800 text-white flex items-center justify-center">
+          <p>Please log in to continue.</p>
+        </div>
+      )}
+      <LoginModal
+        isOpen={isLoginOpen}
+        onRequestClose={handleLoginClose}
+        setUser={setUser}
+      />
+    </>
+  );
+};
 
 const App = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Check if user is already logged in (e.g., on page refresh)
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+      } catch (err) {
+        console.error('Error parsing stored user:', err);
+        localStorage.removeItem('user');
+        setUser(null);
+      }
+    } else {
+      setUser(null);
     }
   }, []);
 
   useEffect(() => {
-    // Update localStorage when user changes
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));
     } else {
       localStorage.removeItem('user');
+      localStorage.removeItem('access');
+      localStorage.removeItem('refresh');
     }
   }, [user]);
 
@@ -30,10 +72,22 @@ const App = () => {
       <div className="bg-gray-800 min-h-screen">
         <Navbar user={user} setUser={setUser} />
         <Routes>
-          <Route path="/login" element={<Login setUser={setUser} />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/flashcards" element={<Flashcards />} />
-          <Route path="/" element={<Flashcards />} />
+          <Route
+            path="/flashcards"
+            element={
+              <ProtectedRoute user={user} setUser={setUser}>
+                <Flashcards />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute user={user} setUser={setUser}>
+                <Flashcards />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </div>
     </Router>
