@@ -1,30 +1,63 @@
 @import "tailwindcss";
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
-/* Modal overlay */
+
+/* Modal overlay: full-screen flex container that centers its child */
 .ReactModal__Overlay {
   background-color: rgba(0, 0, 0, 0.75) !important;
   z-index: 1000;
   position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
+  inset: 0 !important;         /* shorthand for top/right/bottom/left = 0 */
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
 }
 
-/* Modal content */
+/* Modal content: let flex do the centering */
 .ReactModal__Content {
   background-color: #1f2937 !important; /* Gray-800 */
   border: none !important;
   border-radius: 0.5rem !important;
   padding: 2rem !important;
   max-width: 28rem !important; /* 448px */
-  width: 90% !important; /* Responsive width */
+  width: 90% !important;       /* Responsive width */
   max-height: 80vh !important; /* Limit height to 80% of viewport */
   overflow-y: auto !important; /* Scroll if content overflows */
-  position: relative !important;
+  /* remove any `position: relative` or `position: fixed` here */
+}
+
+/* Custom color for the plus sign */
+.text-mint-green {
+  color: #98D8C8;
+}
+
+/* (Your other Flashcard styles can remain unchanged) */
+.flashcard {
+  perspective: 1000px;
+}
+.flashcard-inner {
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+.flashcard-front,
+.flashcard-back {
+  backface-visibility: hidden;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flashcard-back {
+  transform: rotateY(180deg);
+}
+.bg-dark {
+  background-color: #141E1B;
+}
+.card {
+  aspect-ratio: 5/7;
+  width: 100%;
+  max-width: 220px;
+  margin: auto;
 }
