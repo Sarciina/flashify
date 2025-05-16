@@ -131,13 +131,13 @@ const FlashcardList = () => {
               <div className="mt-auto flex justify-end space-x-2 opacity-0 hover:opacity-100 transition-opacity">
                 <button
                   onClick={e => openEdit(c, e)}
-                  className="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600"
+                  className="bg-blue-500 text-black px-3 py-1 rounded text-sm hover:bg-blue-600"
                 >
                   Edit
                 </button>
                 <button
                   onClick={e => openDelete(c, e)}
-                  className="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600"
+                  className="bg-red-500 text-black px-3 py-1 rounded text-sm hover:bg-red-600"
                 >
                   Delete
                 </button>
@@ -151,7 +151,7 @@ const FlashcardList = () => {
       <Modal
         isOpen={isAddOpen}
         onRequestClose={() => setIsAddOpen(false)}
-        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 text-white rounded-xl p-8 max-w-md w-full z-50"
+        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  text-black rounded-xl p-8 max-w-md w-full z-50" style={{ backgroundColor: "#142518" }}
         overlayClassName="fixed inset-0 bg-black bg-opacity-75 z-40"
         contentLabel="Add Flashcard"
       >
@@ -159,14 +159,14 @@ const FlashcardList = () => {
         <form onSubmit={submitAdd}>
           <label className="block mb-2">Question</label>
           <input
-            className="w-full mb-4 p-2 rounded bg-gray-700 text-white"
+            className="w-full mb-4 p-2 rounded text-black" style={{ backgroundColor: "#fafac0 " }}
             value={form.question}
             onChange={e => setForm(f => ({ ...f, question: e.target.value }))}
             required
           />
           <label className="block mb-2">Answer</label>
           <input
-            className="w-full mb-4 p-2 rounded bg-gray-700 text-white"
+            className="w-full mb-4 p-2 rounded  text-black" style={{ backgroundColor: "#fafac0 " }}
             value={form.answer}
             onChange={e => setForm(f => ({ ...f, answer: e.target.value }))}
             required
@@ -193,7 +193,7 @@ const FlashcardList = () => {
       <Modal
         isOpen={isEditOpen}
         onRequestClose={() => setIsEditOpen(false)}
-        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 text-white rounded-xl p-8 max-w-md w-full z-50"
+        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  text-black rounded-xl p-8 max-w-md w-full z-50" style={{ backgroundColor: "#142518" }}
         overlayClassName="fixed inset-0 bg-black bg-opacity-75 z-40"
         contentLabel="Edit Flashcard"
       >
@@ -201,14 +201,14 @@ const FlashcardList = () => {
         <form onSubmit={submitEdit}>
           <label className="block mb-2">Question</label>
           <input
-            className="w-full mb-4 p-2 rounded bg-gray-700 text-white"
+            className="w-full mb-4 p-2 rounded  text-black" style={{ backgroundColor: "#fafac0 " }}
             value={form.question}
             onChange={e => setForm(f => ({ ...f, question: e.target.value }))}
             required
           />
           <label className="block mb-2">Answer</label>
           <input
-            className="w-full mb-4 p-2 rounded bg-gray-700 text-white"
+            className="w-full mb-4 p-2 rounded  text-black" style={{ backgroundColor: "#fafac0 " }}
             value={form.answer}
             onChange={e => setForm(f => ({ ...f, answer: e.target.value }))}
             required
@@ -235,7 +235,7 @@ const FlashcardList = () => {
       <Modal
         isOpen={isDeleteOpen}
         onRequestClose={() => setIsDeleteOpen(false)}
-        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 text-white rounded-xl p-8 max-w-md w-full z-50"
+        className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black rounded-xl p-8 max-w-md w-full z-50" style={{ backgroundColor: "#142518" }}
         overlayClassName="fixed inset-0 bg-black bg-opacity-75 z-40"
         contentLabel="Delete Flashcard Modal"
       >
@@ -244,13 +244,13 @@ const FlashcardList = () => {
         <div className="flex space-x-4">
           <button
             onClick={confirmDelete}
-            className="flex-1 bg-red-500 p-2 rounded hover:bg-red-600 text-white"
+            className="flex-1 bg-red-500 p-2 rounded hover:bg-red-600 text-black"
           >
             Yes, Delete
           </button>
           <button
             onClick={() => setIsDeleteOpen(false)}
-            className="flex-1 bg-gray-500 p-2 rounded hover:bg-gray-600 text-white"
+            className="flex-1 bg-gray-500 p-2 rounded hover:bg-gray-600 text-black"
           >
             Cancel
           </button>

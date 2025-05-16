@@ -53,7 +53,7 @@ const LoginModal = ({ isOpen, onRequestClose, setUser }) => {
             id="username"
             value={credentials.username}
             onChange={handleChange}
-            className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none"
+            className="w-full p-2 rounded text-white focus:outline-none" style={{ backgroundColor: "#fafac0 " }}
             required
           />
         </div>
@@ -67,7 +67,7 @@ const LoginModal = ({ isOpen, onRequestClose, setUser }) => {
             id="password"
             value={credentials.password}
             onChange={handleChange}
-            className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none"
+            className="w-full p-2 rounded  text-white focus:outline-none" style={{ backgroundColor: "#fafac0 " }}
             required
           />
         </div>

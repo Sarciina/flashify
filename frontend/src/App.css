@@ -3,10 +3,3 @@
 @tailwind components;
 @tailwind utilities; */
 
-/* Enforce fixed, centered positioning for every React-Modal */
-.ReactModal__Content {
-  position: fixed !important;
-  top: 50%        !important;
-  left: 50%       !important;
-  transform: translate(-50%, -50%) !important;
-}

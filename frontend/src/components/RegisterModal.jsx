@@ -53,7 +53,7 @@ const RegisterModal = ({ isOpen, onRequestClose }) => {
             id="username"
             value={userData.username}
             onChange={handleChange}
-            className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none"
+            className="w-full p-2 rounded  text-white focus:outline-none" style={{ backgroundColor: "#fafac0 " }}
             required
           />
         </div>
@@ -67,21 +67,21 @@ const RegisterModal = ({ isOpen, onRequestClose }) => {
             id="password"
             value={userData.password}
             onChange={handleChange}
-            className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none"
+            className="w-full p-2 rounded  text-black focus:outline-none" style={{ backgroundColor: "#fafac0 " }}
             required
           />
         </div>
         <div className="flex space-x-4">
           <button
             type="submit"
-            className="flex-1 bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+            className="flex-1 bg-blue-500 text-black p-2 rounded hover:bg-blue-600"
           >
             Register
           </button>
           <button
             type="button"
             onClick={onRequestClose}
-            className="flex-1 bg-gray-500 text-white p-2 rounded hover:bg-gray-600"
+            className="flex-1 bg-gray-500 text-black p-2 rounded hover:bg-gray-600"
           >
             Cancel
           </button>

@@ -13,7 +13,7 @@
 
 /* Modal content: let flex do the centering */
 .ReactModal__Content {
-  background-color: #1f2937 !important; /* Gray-800 */
+  background-color: #142518 !important; 
   border: none !important;
   border-radius: 0.5rem !important;
   padding: 2rem !important;
@@ -53,7 +53,7 @@
   transform: rotateY(180deg);
 }
 .bg-dark {
-  background-color: #141E1B;
+  background-color: #293a31;
 }
 .card {
   aspect-ratio: 5/7;

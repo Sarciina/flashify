@@ -25,7 +25,7 @@ const ProtectedRoute = ({ user, setUser, children }) => {
       {user ? (
         children
       ) : (
-        <div className="min-h-screen bg-gray-800 text-white flex items-center justify-center">
+        <div className="min-h-screen  text-white flex items-center justify-center" style={{ backgroundColor: "#142518" }}>
           <p>Please log in to continue.</p>
         </div>
       )}
@@ -69,7 +69,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className="bg-gray-800 min-h-screen">
+      <div className=" min-h-screen " style={{ backgroundColor: "#142518" }}>
         <Navbar user={user} setUser={setUser} />
         <Routes>
           <Route

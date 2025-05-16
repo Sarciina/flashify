@@ -3,7 +3,7 @@ import FlashcardList from '../components/FlashcardList';
 
 const Flashcards = () => {
   return (
-    <div className="min-h-screen bg-gray-800 text-white">
+    <div className="min-h-screen  text-white" style={{ backgroundColor: "#142518" }}> 
       <FlashcardList />
     </div>
   );

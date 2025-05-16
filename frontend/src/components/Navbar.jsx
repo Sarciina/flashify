@@ -11,7 +11,7 @@ const Navbar = ({ user, setUser }) => {
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
 
   return (
-    <nav className="bg-gray-800 p-4 flex justify-between items-center">
+    <nav className=" p-4 flex justify-between items-center" style={{ backgroundColor: "#142518" }}>
       <div className="text-white text-2xl font-bold">
         <Link to="/">FLASHIFY</Link>
       </div>
